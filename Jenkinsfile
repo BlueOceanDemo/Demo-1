@@ -19,5 +19,11 @@ pipeline {
                 sh 'echo "This is coming from Jenkins File"' 
             }
         }
+        stage('Test-2') {
+            steps {
+                sh 'echo "This is coming from Dev Branch"'
+            }
+        }
+
     }
 }
