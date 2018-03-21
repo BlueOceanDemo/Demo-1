@@ -19,9 +19,25 @@ pipeline {
                 sh 'echo "This is coming from Jenkins File"' 
             }
         }
-        stage('Test-2') {
+        }
+        stage('Deliver for development') {
+            when {
+                branch 'dev-1' 
+            }
             steps {
-                sh 'echo "This is coming from Dev Branch"'
+                sh 'echo "This is from dev-1"'
+                input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                sh 'echo "Success"'
+            }
+        }
+        stage('Deploy for production') {
+            when {
+                branch 'master'  
+            }
+            steps {
+                sh 'This is from Master'
+                input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                sh 'echo "Master Branch"'
             }
         }
 
