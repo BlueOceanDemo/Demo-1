@@ -2,11 +2,11 @@ pipeline {
     agent {
         docker {
             image 'node:6-alpine'
-            args '-p 3000:3000'
+            args '-p 3000:3000 -p 5000:5000'
         }
     }
     environment {
-        CI = 'true' 
+        CI = 'true'
     }
     stages {
         stage('Build') {
@@ -14,20 +14,19 @@ pipeline {
                 sh 'npm install'
             }
         }
-        stage('Test') { 
+        stage('Test') {
             steps {
-                sh 'echo "This is coming from Jenkins File"' 
+                sh 'echo "This is Test Stage"'
             }
-        }
         }
         stage('Deliver for development') {
             when {
                 branch 'dev-1' 
             }
             steps {
-                sh 'echo "This is from dev-1"'
+                sh 'echo "Step-1"'
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                sh 'echo "Success"'
+                sh 'echo "dev-1 branch success"'
             }
         }
         stage('Deploy for production') {
@@ -35,11 +34,10 @@ pipeline {
                 branch 'master'  
             }
             steps {
-                sh 'This is from Master'
+                sh 'echo "step-2"'
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                sh 'echo "Master Branch"'
+                sh 'echo "master done"'
             }
         }
-
     }
 }
