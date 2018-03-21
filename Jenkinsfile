@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Deliver for development') {
             when {
-                branch 'dev-1' 
+                branch 'dev' 
             }
             steps {
                 sh 'echo "Step-1"'
