@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage("build") {
             steps {
-                sh 'apt-get update && apt-get install maven'
+                sh 'apt-get update -y && apt-get install maven -y && mvn clean install -Dmaven.test.failure.ignore=true'
             }
         }
     }
