@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage("build") {
             steps {
-                sh 'apt-cache search maven '
+                sh 'apt-get update'
             }
         }
     }
