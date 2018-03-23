@@ -5,6 +5,7 @@ pipeline {
             steps {
                 sh 'uname -a'
             }
+        }
     }
     post {
         always {
@@ -13,4 +14,3 @@ pipeline {
         }
     }
 }
-
