@@ -1,43 +1,28 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:6-alpine'
-            args '-p 3000:3000 -p 5000:5000'
-        }
-    }
-    environment {
-        CI = 'true'
-    }
+    agent any
     stages {
-        stage('Build') {
+        stage('No-op') {
             steps {
-                sh 'npm install'
+                sh 'ls'
             }
         }
-        stage('Test') {
-            steps {
-                sh 'echo "This is Test Stage"'
-            }
+    }
+    post {
+        always {
+            echo 'One way or another, I have finished'
+            deleteDir() /* clean up our workspace */
         }
-        stage('Deliver for development') {
-            when {
-                branch 'dev' 
-            }
-            steps {
-                sh 'echo "Step-1"'
-                input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                sh 'echo "dev-1 branch success"'
-            }
+        success {
+            echo 'I succeeeded!'
         }
-        stage('Deploy for production') {
-            when {
-                branch 'master'  
-            }
-            steps {
-                sh 'echo "step-2"'
-                input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                sh 'echo "master done"'
-            }
+        unstable {
+            echo 'I am unstable :/'
+        }
+        failure {
+            echo 'I failed :('
+        }
+        changed {
+            echo 'Things were different before...'
         }
     }
 }
