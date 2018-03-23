@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage("build") {
             steps {
-                sh 'uname -a'
+                sh 'apt-get install maven2 -y'
             }
         }
     }
