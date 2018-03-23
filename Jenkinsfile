@@ -5,9 +5,6 @@ pipeline {
             steps {
                 sh 'uname -a'
             }
-            steps {
-                sh 'mvn clean install -Dmaven.test.failure.ignore=true'
-        }
     }
     post {
         always {
