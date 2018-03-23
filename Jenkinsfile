@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('No-op') {
+        stage('build') {
             steps {
                 sh 'ls'
             }
