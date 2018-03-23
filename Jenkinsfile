@@ -1,28 +1,17 @@
 pipeline {
-    agent any
+    agent { docker "java" }
     stages {
-        stage('Build') {
+        stage("build") {
             steps {
-                sh 'ls'
+                sh 'mvn clean install -Dmaven.test.failure.ignore=true'
             }
         }
     }
     post {
         always {
-            echo 'One way or another, I have finished'
-            deleteDir() /* clean up our workspace */
-        }
-        success {
-            echo 'I succeeeded!'
-        }
-        unstable {
-            echo 'I am unstable :/'
-        }
-        failure {
-            echo 'I failed :('
-        }
-        changed {
-            echo 'Things were different before...'
+            archive "target/**/*"
+            junit 'target/surefire-reports/*.xml'
         }
     }
 }
+
